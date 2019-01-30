@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_dia5"
+        android:icon="@drawable/dia"
+        android:title="@string/_05" />
+
+    <item
+        android:id="@+id/navigation_dia15"
+        android:icon="@drawable/dia"
+        android:title="@string/_15" />
+
+    <item
+        android:id="@+id/navigation_dia25"
+        android:icon="@drawable/dia"
+        android:title="@string/_25" />
+
+</menu>
