@@ -7,8 +7,11 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="dia 25" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dia 25"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="50sp"/>
 
 </FrameLayout>

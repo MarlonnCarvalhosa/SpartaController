@@ -3,4 +3,14 @@
     <string name="_25">25</string>
     <string name="_15">15</string>
     <string name="_05">05</string>
+    <string name="nome">Nome</string>
+    <string name="vencimento">Vencimento:</string>
+    <string name="aguarde">Aguarde...</string>
+
+    <array name="spinnerdatavencimento">
+        <item>Dia 05</item>
+        <item>Dia 15</item>
+        <item>Dia 25</item>
+    </array>
+
 </resources>
