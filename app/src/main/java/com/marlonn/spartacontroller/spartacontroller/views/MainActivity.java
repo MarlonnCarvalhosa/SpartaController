@@ -4,18 +4,26 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.support.v4.app.DialogFragment;
+import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.marlonn.spartacontroller.spartacontroller.R;
+import com.marlonn.spartacontroller.spartacontroller.adapter.AdapterAlunos;
 import com.marlonn.spartacontroller.spartacontroller.fragments.Dia15Fragment;
 import com.marlonn.spartacontroller.spartacontroller.fragments.Dia25Fragment;
 import com.marlonn.spartacontroller.spartacontroller.fragments.Dia5Fragment;
+import com.marlonn.spartacontroller.spartacontroller.model.Alunos;
+import com.marlonn.spartacontroller.spartacontroller.model.Mensalidade;
+import com.marlonn.spartacontroller.spartacontroller.utils.ConfiguraçõesFirebase;
 import com.marlonn.spartacontroller.spartacontroller.utils.FragmentoUtils;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 

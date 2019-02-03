@@ -15,15 +15,12 @@ public class ConfiguraçõesFirebase {
         return referenceFirebase;
     }
 
-    public static Query getProdutos() {
-        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_AVALIACAO);
+    public static Query getAlunos() {
+        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_ALUNOS);
     }
 
-    public static Query getUsuario() {
-        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_USUARIO);
+    public static Query getMensalidade() {
+        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_MENSALIDADE);
     }
 
-    public static Query getDias() {
-        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_DIAS);
-    }
 }

@@ -7,53 +7,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.marlonncarvalhosa.academiapersonal.R;
-import com.example.marlonncarvalhosa.academiapersonal.fragments.CadastrarFragment;
-import com.example.marlonncarvalhosa.academiapersonal.model.Usuario;
-import com.example.marlonncarvalhosa.academiapersonal.utils.FragmentoUtils;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.marlonn.spartacontroller.spartacontroller.R;
+import com.marlonn.spartacontroller.spartacontroller.model.Alunos;
+import com.marlonn.spartacontroller.spartacontroller.views.DescricaoAlunoDialog;
+import com.marlonn.spartacontroller.spartacontroller.views.ExcluirAlunoDialog;
 
 import java.util.Collections;
 import java.util.List;
 
 public class AdapterAlunos extends RecyclerView.Adapter<AdapterAlunos.ViewHolder> {
     private FragmentActivity activity;
-    private List<Usuario> usuarios;
-    private Usuario usuario = new Usuario();
-    private FirebaseUser currentFirebaseUser;
-    private FirebaseAuth auth;
+    private List<Alunos> alunos;
+    private Alunos aluno = new Alunos();
 
-    public AdapterAlunos(FragmentActivity activity, List<Usuario> usuarios){
+    public AdapterAlunos(FragmentActivity activity, List<Alunos> alunos){
         this.activity = activity;
-        this.usuarios = usuarios;
+        this.alunos = alunos;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txtNome;
-        private ImageView fotoGoogle;
-        private LinearLayout clickCard;
+        private ImageView clickExcluir;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            auth = FirebaseAuth.getInstance();
-            currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-
-            fotoGoogle = itemView.findViewById(R.id.fotoDoGoogle);
-            clickCard = itemView.findViewById(R.id.linearAdapter);
-            txtNome = itemView.findViewById(R.id.nomeDoGoogle);
+            clickExcluir = itemView.findViewById(R.id.clickExcluir);
+            txtNome = itemView.findViewById(R.id.nomeDoAluno);
 
         }
     }
 
-    public void atualiza(List<Usuario> usuarios){
-        Collections.reverse(usuarios);
-        this.usuarios = usuarios;
+    public void atualiza(List<Alunos> alunos){
+        Collections.reverse(alunos);
+        this.alunos = alunos;
         this.notifyDataSetChanged();
 
     }
@@ -71,28 +61,46 @@ public class AdapterAlunos extends RecyclerView.Adapter<AdapterAlunos.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        final Usuario usuario = usuarios.get(position);
+        final Alunos aluno = alunos.get(position);
 
-        holder.txtNome.setText(usuario.getNome());
-        holder.clickCard.setOnClickListener(new View.OnClickListener() {
+        holder.txtNome.setText(aluno.getNomeAluno());
+        holder.txtNome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                FragmentoUtils.replace(activity, new CadastrarFragment());
+                abrirDialogo();
 
             }
         });
-        try {
-            Glide.with(activity).load(usuario.getFotoPerfilGoogle()).into(holder.fotoGoogle);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
+        holder.clickExcluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               abrirDialogo2();
+
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
 
-        return usuarios.size();
+        return alunos.size();
+    }
+
+    private void abrirDialogo() {
+
+        DescricaoAlunoDialog descricaoAluno = new DescricaoAlunoDialog();
+        descricaoAluno.show(activity.getSupportFragmentManager(), " Descricao");
+
+    }
+
+    private void abrirDialogo2() {
+
+        ExcluirAlunoDialog excluirAlunoDialog = new ExcluirAlunoDialog();
+        excluirAlunoDialog.show(activity.getSupportFragmentManager(), " Excluir");
+
     }
 }

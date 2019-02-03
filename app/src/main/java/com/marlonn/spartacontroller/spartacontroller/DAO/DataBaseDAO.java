@@ -4,14 +4,13 @@ import android.app.ProgressDialog;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.example.marlonncarvalhosa.academiapersonal.model.Avaliacao;
-import com.example.marlonncarvalhosa.academiapersonal.model.Dias;
-import com.example.marlonncarvalhosa.academiapersonal.model.Usuario;
-import com.example.marlonncarvalhosa.academiapersonal.utils.ConfiguraçõesFirebase;
-import com.example.marlonncarvalhosa.academiapersonal.utils.ConstantsUtils;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.marlonn.spartacontroller.spartacontroller.model.Alunos;
+import com.marlonn.spartacontroller.spartacontroller.model.Mensalidade;
+import com.marlonn.spartacontroller.spartacontroller.utils.ConfiguraçõesFirebase;
+import com.marlonn.spartacontroller.spartacontroller.utils.ConstantsUtils;
 
 public class DataBaseDAO {
 
@@ -19,44 +18,32 @@ public class DataBaseDAO {
     private int cont = 0;
 
 
-    public void saveUsuario(FragmentActivity loginActivity, Usuario usuario) {
-        usuario.setId(ConfiguraçõesFirebase.getFirebase().push().getKey());
-        Log.v("teste save", usuario.getId());
+    public void saveAluno(FragmentActivity loginActivity, Alunos alunos) {
+        alunos.setId(ConfiguraçõesFirebase.getFirebase().push().getKey());
+        Log.v("teste save", alunos.getId());
         DatabaseReference reference = ConfiguraçõesFirebase.getFirebase();
-        reference.child(ConstantsUtils.BANCO_USUARIO).child(String.valueOf(usuario.getId())).setValue(usuario);
+        reference.child(ConstantsUtils.BANCO_ALUNOS).child(String.valueOf(alunos.getId())).setValue(alunos);
     }
 
-    public void uploadDados(FragmentActivity activity, Avaliacao avaliacao, ProgressDialog progressDialog) {
-
-        uploadAvaliacao(avaliacao);
-
+    public void updateSimpleInfoUser(FragmentActivity activity, Mensalidade mensalidade) {
+        DatabaseReference reference = ConfiguraçõesFirebase.getFirebase();
+        reference.child(ConstantsUtils.BANCO_MENSALIDADE).child(String.valueOf(mensalidade.getId())).setValue(mensalidade);
     }
 
-    public void updateSimpleInfoUser(Usuario usuario) {
+    public void removeSimpleInfoUser(FragmentActivity activity, Alunos alunos) {
         DatabaseReference reference = ConfiguraçõesFirebase.getFirebase();
-        reference.child(ConstantsUtils.BANCO_USUARIO).child(String.valueOf(usuario.getId())).setValue(usuario);
-    }
+        reference.child(ConstantsUtils.BANCO_ALUNOS).removeValue();
 
-    private void uploadAvaliacao(Avaliacao avaliacao) {
-        avaliacao.setId(ConfiguraçõesFirebase.getFirebase().push().getKey());
-        Log.v("teste save", avaliacao.getId());
-        DatabaseReference reference = ConfiguraçõesFirebase.getFirebase();
-        reference.child(ConstantsUtils.BANCO_AVALIACAO).child(String.valueOf(avaliacao.getId())).setValue(avaliacao);
     }
 
     public static Query getQuerryUsuario(String uId) {
-        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_USUARIO).child(uId);
+        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_ALUNOS).child(uId);
     }
 
-    public void newDia(FragmentActivity activity, Dias dias) {
-        dias.setId(ConfiguraçõesFirebase.getFirebase().push().getKey());
+    public void saveMensalidade(FragmentActivity loginActivity, Mensalidade mensalidade) {
+        mensalidade.setId(ConfiguraçõesFirebase.getFirebase().getKey());
         DatabaseReference reference = ConfiguraçõesFirebase.getFirebase();
-        reference.child(ConstantsUtils.BANCO_DIAS).child(String.valueOf(dias.getId())).setValue(dias);
-    }
-
-    public static Query getDias(String uid) {
-        return FirebaseDatabase.getInstance().getReference(ConstantsUtils.BANCO_USUARIO).child(uid+"/dias");
-
+        reference.child(ConstantsUtils.BANCO_MENSALIDADE).child(String.valueOf(mensalidade.getId())).setValue(mensalidade);
     }
 
 }
