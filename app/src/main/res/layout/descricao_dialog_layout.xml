@@ -16,13 +16,13 @@
             android:text="@string/valor_a_ser_pago"
             android:textSize="20sp" />
 
-        <Spinner
-            android:id="@+id/spinnerMensalidade"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/edit_pagar"
+            android:layout_width="100dp"
+            android:maxLength="8"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:entries="@array/valormensalidade"
-            android:padding="10dp"/>
+            android:hint="R$"
+            android:layout_marginStart="10dp"/>
 
     </LinearLayout>
 

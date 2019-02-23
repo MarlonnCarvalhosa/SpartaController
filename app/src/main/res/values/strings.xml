@@ -10,16 +10,12 @@
     <string name="excluindo">Exluindo...</string>
     <string name="realmente_deseja_excluir">Realmente deseja excluir?</string>
     <string name="valor_a_ser_pago">Valor a ser pago:</string>
+    <string name="renda_r">Renda R$</string>
 
     <array name="spinnerdatavencimento">
         <item>Dia 05</item>
         <item>Dia 15</item>
         <item>Dia 25</item>
-    </array>
-
-    <array name="valormensalidade">
-        <item>R$: 55,00</item>
-        <item>R$: 60,00</item>
     </array>
 
 </resources>

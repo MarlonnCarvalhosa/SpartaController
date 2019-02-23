@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Renda R$  "
+                android:text="@string/renda_r"
                 android:textSize="25sp"
                 android:layout_gravity="center"/>
 
@@ -29,7 +29,8 @@
                 android:id="@+id/rendaTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="800.00"
+                android:layout_marginStart="3dp"
+                android:text=" 00,00"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:textColor="#1DE477"

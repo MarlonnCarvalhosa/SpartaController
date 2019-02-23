@@ -12,17 +12,31 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.marlonn.spartacontroller.spartacontroller.DAO.DataBaseDAO;
 import com.marlonn.spartacontroller.spartacontroller.R;
 import com.marlonn.spartacontroller.spartacontroller.model.Alunos;
 import com.marlonn.spartacontroller.spartacontroller.model.Mensalidade;
+import com.marlonn.spartacontroller.spartacontroller.utils.ConfiguraçõesFirebase;
+import com.marlonn.spartacontroller.spartacontroller.utils.MoneyTextWatcher;
+
+import java.util.Locale;
 
 public class DescricaoAlunoDialog extends AppCompatDialogFragment {
 
-    private Spinner mensalidadeTotal;
+    private EditText mensalidadeTotal;
     private Mensalidade mensalidade = new Mensalidade();
     private Alunos alunos = new Alunos();
-    private String valorTotal;
+    private float valorTotal;
+    private String valor;
+    private boolean mensalidadePaga;
+    private DatabaseReference reference;
+    private ValueEventListener ValueEventListener;
+    private FirebaseDatabase firebaseDatabase;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -32,7 +46,12 @@ public class DescricaoAlunoDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.descricao_dialog_layout, null);
 
+        reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("mensalidade").child("mensalidadeTotal").getDatabase();
+
         campoIds(view);
+
+        recuperarValor();
 
         builder.setView(view);
         builder.setTitle("Pagamento");
@@ -66,24 +85,54 @@ public class DescricaoAlunoDialog extends AppCompatDialogFragment {
             }
         });
 
+        Locale mLocale = new Locale("pt", "BR");
+        mensalidadeTotal.addTextChangedListener(new MoneyTextWatcher(mensalidadeTotal, mLocale));
+
         return builder.create();
+    }
+
+    private void recuperarValor (){
+
+        reference = reference.child( "mensalidade" ).child("mensalidadeTotal");
+        ValueEventListener = reference.addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        Mensalidade mensalidadee = dataSnapshot.getValue( Mensalidade.class );
+
+                            String rendaTotal = mensalidadee.getValor();
+
+
+                            //Configura valores recuperados
+
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+
     }
 
     private void campoIds(View view) {
 
-        mensalidadeTotal = view.findViewById(R.id.spinnerMensalidade);
-
+        mensalidadeTotal = view.findViewById(R.id.edit_pagar);
 
     }
 
     private void uploadMensalidade(View view) {
 
-        mensalidade.setValor(Integer.parseInt(mensalidadeTotal.getSelectedItem().toString().replace("R$:", "").replace(" ", "").replace(",", "")));
+        mensalidade.setValor(mensalidadeTotal.getText().toString().replace("R$", ""));
+        alunos.setPago(true);
 
         new DataBaseDAO().saveMensalidade(getActivity(), mensalidade);
 
     }
-
-
 
 }

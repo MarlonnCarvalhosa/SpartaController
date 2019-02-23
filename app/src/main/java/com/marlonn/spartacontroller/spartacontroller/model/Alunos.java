@@ -7,7 +7,7 @@ public class Alunos implements Serializable {
     private String id;
     private String nomeAluno;
     private String dataVencimento;
-    private boolean pago = false;
+    private boolean pago;
 
     public Alunos(String id, String nomeAluno, String dataVencimento, boolean pago) {
 
